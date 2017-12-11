@@ -1,4 +1,7 @@
-#install mysql-5.7.18 in Centos5.7.18 use source packets
+##install mysql-5.7.18 in Centos5.7.18 use source packets
+##查询并删除默认的mariadb
+rpm -qa | grep Maria*
+yum -y remove mari*
 yum -y update 
 yum -y install gcc* gcc-c++ ncurses* ncurses-devel* cmake* bison* libgcrypt* perl*
 groupadd mysql
@@ -41,4 +44,9 @@ vim /etc/my.cnf
 [mysqld]
 ##add this 
 user=mysql
+
+#start
+/mysql/mysql5718/bin/mysqld_safe --defaults-file=/mysql/data/my.cnf  --user=mysql &
+#showdown
+/mysql/mysql5718/bin/mysqladmin -uroot -p shutdown --socket=/mysql/data/mysql.socket
 

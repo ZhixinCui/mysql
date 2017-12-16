@@ -1,0 +1,12 @@
+ 1.修改表的COLUNM报错
+ ALTER TABLE birds_new CHANGE COLUMN endangered endangered ENUM('Extinct',
+    -> 'Extinct in Wild',
+    -> 'Threatened - Critically Endangered',
+    -> 'Threatened - Endangered',
+    -> 'Threatened - Vulnerable',
+    -> 'Lower Risk - Conservation Dependent',
+    -> 'Lower Risk - Near Threatened',
+    -> 'Lower Risk - Least Concern')
+    -> AFTER family_id;
+ERROR 1265 (01000): Data truncated for column 'endangered' at row 1
+##birds_new中endangered列含有空值，使用'UPDATE birds_new SET endangered = 1;';然后在执行上述语句

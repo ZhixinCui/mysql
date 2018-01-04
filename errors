@@ -10,3 +10,31 @@
     -> AFTER family_id;
 ERROR 1265 (01000): Data truncated for column 'endangered' at row 1
 ##birds_new中endangered列含有空值，使用'UPDATE birds_new SET endangered = 1;';然后在执行上述语句
+
+2.将ENMU类型的数据内容由'Mr'改为'Mr.'，'Ms'改为'Ms.'
+update humans set formal_title = 'Mr.' where formal_title = 'Ms';
+ERROR 1265 (01000): Data truncated for column 'formal_title' at row 3
+//'Mr.'必须包含在ENUM中,查看如下
+	show full columns from humans like 'formal_title'\G
+	*************************** 1. row ***************************
+	     Field: formal_title
+	      Type: enum('Mr','Ms')
+	 Collation: utf8_general_ci
+	      Null: YES
+	       Key: 
+	   Default: NULL
+	     Extra: 
+	Privileges: select,insert,update,references
+	   Comment: 
+	1 row in set (0.00 sec)
+ALTER TABLE humans CHANGE COLUMN formal_title formal_title ENUM('Mr.','Ms.');
+	ERROR 1265 (01000): Data truncated for column 'formal_title' at row 1
+//数据中含有'Ms'，'Mr',不可以之间更改，先增加'Ms.','Mr.'
+ALTER TABLE humans CHANGE COLUMN formal_title formal_title ENUM('Ms.','Mr.','Mr','Ms');
+	Query OK, 21 rows affected (0.12 sec)
+update humans set formal_title = 'Mr.' where formal_title = 'Mr';
+	Query OK, 10 rows affected (0.00 sec)
+update humans set formal_title = 'Ms.' where formal_title = 'Ms';
+	Query OK, 10 rows affected (0.00 sec)
+
+ALTER TABLE humans CHANGE COLUMN formal_title formal_title ENUM('Mr.','Ms.');

@@ -42,3 +42,8 @@ ALTER TABLE humans CHANGE COLUMN formal_title formal_title ENUM('Mr.','Ms.');
 3.使用convert_tz()函数转变时区，结果为NULL
 原因：mysql中的mysql数据库中没有时区的表项，解决办法如下
 # /usr/local/mysql/bin/mysql_tzinfo_to_sql /usr/share/zoneinfo/ | mysql -u root mysql -p
+参考链接：
+https://stackoverflow.com/questions/14454304/convert-tz-returns-null
+https://dev.mysql.com/downloads/timezones.html
+https://dev.mysql.com/doc/refman/5.6/en/time-zone-support.html#time-zone-installation
+

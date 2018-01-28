@@ -46,4 +46,11 @@ ALTER TABLE humans CHANGE COLUMN formal_title formal_title ENUM('Mr.','Ms.');
 https://stackoverflow.com/questions/14454304/convert-tz-returns-null
 https://dev.mysql.com/downloads/timezones.html
 https://dev.mysql.com/doc/refman/5.6/en/time-zone-support.html#time-zone-installation
+4.workbench报错：Host X.X.X.X is not allowed to connect to this MySQL server
+原因：mysql不允许远程登录
+解决办法：
+ 1)从系统上登录到数据库：mysql -u root -p 
+ 2)mysql> update user set host='%' where user = 'root';
+ 3)mysql> flush privileges;//刷新权限
+
 
